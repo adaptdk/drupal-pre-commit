@@ -53,6 +53,11 @@ $ drush dl coder
 $ sudo ln -sv ~/.drush/coder/coder_sniffer/Drupal $(pear config-get php_dir)/PHP/CodeSniffer/Standards/Drupal
 ```
 
+Follow the instruction here to install drupals code sniffer.
+```
+https://www.drupal.org/node/1419988
+```
+
 Usage:
 --------
 
