@@ -26,7 +26,6 @@ clean_exit(){
   exit 1
 }
 
-echo
 echo "************************************************************************"
 echo "*                                                                      *"
 echo "*   GIT PRE-COMMIT HOOK FOR DRUPAL                                     *"
@@ -122,7 +121,6 @@ egrep_exclude=".*\($egrep_exclude\)"
 LIST=$( git diff --name-only --cached --diff-filter=ACM | egrep -v "$egrep_exclude" )
 
 # Display the list of files to be processed, for overview purposes.
-echo
 echo "File(s) to be processed/validated:"
 echo
 
@@ -162,11 +160,7 @@ do
     # Check for syntax error.
     ##################################
 
-    echo
-    echo
-    echo
     echo "Validating: $file..."
-    echo
     echo "I. Running the PHP Linter..."
     echo
 
@@ -185,9 +179,8 @@ do
       # Default PHP error code
       PHP_CODE=0
 
-      echo
-      echo
       echo "II. Running the PHP Code Sniffer..."
+      echo
 
       # Run the PHP Codesniffer validation
       $PHPCS_BIN --standard=Drupal $file >&2
@@ -196,29 +189,27 @@ do
       PHPCS_CODE=$?
 
       if [ "$PHPCS_CODE" == "$PHPCS_PASSED" ]; then
-        echo
         echo "No formatting errors detected."
+        echo
 
       elif [ "$PHPCS_CODE" == "$PHPCS_FAILED" ]; then
         let "sniffer_error_count += 1"
         echo "You have coding standard problem in your code. Please fix and commit your changes again."
+        echo
         clean_exit
 
       else
-        echo
         echo "Invalid operation."
         echo
         clean_exit
       fi
 
     elif [ "$SYNTAX_CODE" == "$SYNTAX_ERROR" ]; then
-      echo
       echo "You have syntax error in your code. Please fix and commit your changes again."
       echo
       clean_exit
 
     else
-      echo
       echo "Invalid operation."
       echo
       clean_exit
@@ -259,12 +250,10 @@ if [ "$sniffer_error_count" -gt "0" ]; then
     clean_exit
 fi
 
-echo
-echo
 echo "III. Running the checker/validator for blacklisted functions..."
+echo
 
 if [ "$ERRORS_BUFFER" != "" ]; then
-    echo
     echo "These errors were found in try-to-commit files: "
     echo -e $ERRORS_BUFFER
     echo
@@ -273,7 +262,6 @@ if [ "$ERRORS_BUFFER" != "" ]; then
     clean_exit
 
 else
-    echo
     echo "No backlisted function(s) detected."
     echo
 fi
@@ -282,7 +270,6 @@ fi
 # Execute Esprima js validation.
 ########################################
 
-echo
 echo "IV. Check Javascript syntax."
 echo
 
@@ -308,6 +295,7 @@ else
 
     if [ $? -eq 1 ]; then
       echo "Syntax error: $file"
+      echo
       clean_exit
     fi
   done
