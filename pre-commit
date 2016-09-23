@@ -109,6 +109,10 @@ filters_exclude[16]='\.woff$'
 filters_exclude[17]='\.eot$'
 filters_exclude[18]='\.svg$'
 filters_exclude[19]='\.xml$'
+filters_exclude[19]='\.gitignore$'
+filters_exclude[19]='\.make$'
+filters_exclude[19]='\.md$'
+filters_exclude[19]='\.json$'
 
 # Join filters_exclude array into a single string for grep -v
 # We use egrep for the exclude since it combines better with -v.
